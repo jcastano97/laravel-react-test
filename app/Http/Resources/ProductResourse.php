@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\URL;
 
@@ -20,8 +21,8 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'imageUrl' => $this->image ? URL::to($this->image) : null,
-            'category' => $this->category,
-            'userId' => $this->user_id,
+            'categories' => $this->categories(),
+            'userId' => $this->user()->id,
             'createdAt' => $this->created_at->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updated_at->format('Y-m-d H:i:s')
         ];

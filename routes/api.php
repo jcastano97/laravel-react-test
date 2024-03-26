@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('survey', SurveyController::class);
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    Route::apiResource('product', ProductController::class);
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);

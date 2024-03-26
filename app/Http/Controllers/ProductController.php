@@ -4,29 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function read(Request $request)
+
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $sort = $request->sort;
+        $order = $request->order;
+        $limit = $request->limit;
+
+        $products = Product::where('user_id', $user->id)
+            ->orderBy($sort ?? 'created_at', $order ?? 'desc')
+            ->paginate($limit);
+        return ProductCollection::collection($products);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProductRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create(StoreProductRequest $request)
+    public function store(StoreProductRequest $request)
     {
         //
     }

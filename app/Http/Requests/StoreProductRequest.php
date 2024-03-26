@@ -33,7 +33,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'category' => 'required|string|max:255',
+            'categories.*' => 'required|string|max:255',
             'user_id' => 'exists:users,id',
         ];
     }
